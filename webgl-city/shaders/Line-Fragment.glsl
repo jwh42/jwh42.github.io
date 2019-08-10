@@ -1,0 +1,9 @@
+/* Fragment shader for solid lines */
+
+precision mediump float;
+
+uniform vec3 color;
+
+void main(void) {
+	gl_FragColor = vec4(color.rgb, 1.0);
+}

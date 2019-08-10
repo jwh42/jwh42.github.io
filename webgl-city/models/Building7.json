@@ -1,0 +1,29 @@
+{
+	"type":"building",
+	"angleCount":16,
+	"base": [10,2,7,2,10,2,7,2,10,2,7,2,10,2,7,2],
+	"levels": [
+		{ "height":2, "shader":"diffuse", "texture": "textures/08-blue2.png"   , "r": [10,2,7,2,10,2,7,2,10,2,7,2,10,2,7,2] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [7,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [6,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [5,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [4,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [4,4,6,4,4,4,6,4] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [4,4,6,4,4,4,6,4] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [4,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [5,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [6,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [7,16] },
+		{ "height":1.5, "shader":"diffuse", "texture": "textures/08-blue2.png"   , "r": [10,2,7,2,10,2,7,2,10,2,7,2,10,2,7,2] },
+		{ "height":1.5, "shader":"diffuse", "texture": "textures/08-blue2.png"   , "r": [10,2,7,2,10,2,7,2,10,2,7,2,10,2,7,2] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [7,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [6,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [5,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [4,16] },
+		{ "height":1.5, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [4,4,6,4,4,4,6,4] },
+		{ "height":1.5, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [4,4,6,4,4,4,6,4] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/08-blue2.png" , "r": [4,16] },
+		{ "height":3, "shader":"diffuse", "texture": "textures/01-windows.png" , "r": [5,16] },
+		{ "height":0, "shader":"diffuse", "texture": "textures/04-topper.png" , "r": [0.01,16] }
+	]
+}

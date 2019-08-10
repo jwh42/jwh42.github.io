@@ -1,0 +1,25 @@
+{
+	"type": "building",
+	"angleCount": 32,
+	"base": [12,32],
+	"levels": [
+		{ "shader":"diffuse", "height": 4, "texture":"textures/10-blue3.png",   "r":[9,32]},
+		{ "shader":"diffuse", "height": 6, "texture":"textures/11-blue4.png",   "r":[9,32]},
+		{ "shader":"diffuse", "height": 6, "texture":"textures/01-windows.png", "r":[9,32]},
+		{ "shader":"diffuse", "height": 6, "texture":"textures/01-windows.png", "r":[9,32]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,32]},
+		{ "shader":"diffuse", "height": 6, "texture":"textures/01-windows.png", "r":[9,32]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,32]},
+		{ "shader":"diffuse", "height": 6, "texture":"textures/01-windows.png", "r":[9,32]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1, 9,3, 12,1, 15,3, 12,1]},
+		{ "shader":"diffuse", "height": 3, "texture":"textures/08-blue2.png",   "r":[9,32]},
+		{ "shader":"diffuse", "height": 0, "texture":"textures/04-topper.png",  "r":[0.01,32]},
+		{ "shader":"diffuse", "height": 1, "texture":"textures/12-topper2.png", "r":[0.2,32]},
+		{ "shader":"diffuse", "height": 20,"texture":"textures/12-topper2.png", "r":[0.2,32]}
+	]
+}

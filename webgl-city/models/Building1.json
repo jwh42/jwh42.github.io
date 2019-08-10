@@ -1,0 +1,14 @@
+{
+	"type":"building",
+	"angleCount":9,
+	"base": [10,9],
+	"levels": [
+		{ "height":5, "shader":"diffuse", "texture":"textures/08-teal.png"   , "r":[10,9] },
+		{ "height":5, "shader":"diffuse", "texture":"textures/09-teal2.png"  , "r":[10,9] },
+		{ "height":2, "shader":"diffuse", "texture":"textures/02-grill.png"  , "r":[12,9] },
+		{ "height":2, "shader":"diffuse", "texture":"textures/01-windows.png", "r":[10,9] },
+		{ "height":2, "shader":"diffuse", "texture":"textures/02-grill.png"  , "r":[12,9] },
+		{ "height":2, "shader":"diffuse", "texture":"textures/01-windows.png", "r":[10,9] },
+		{ "height":2, "shader":"diffuse", "texture":"textures/12-topper2.png", "r":[0.01,9] }
+	]
+}

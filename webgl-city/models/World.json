@@ -1,0 +1,69 @@
+{
+	"type": "world",
+	"models": {
+		"camera": "models/Camera.json",
+		"sky": "models/Sky.json",
+		"ground": "models/Ground.json",
+		"cube": "models/Cube.json",
+		"vehicle1": "models/Vehicle1.json",
+		"vehicle2": "models/Vehicle2.json",
+		"vehicle3": "models/Vehicle3.json",
+		"building1": "models/Building1.json",
+		"building2": "models/Building2.json",
+		"building3": "models/Building3.json",
+		"building4": "models/Building4.json",
+		"building5": "models/Building5.json",
+		"building6": "models/Building6.json",
+		"building7": "models/Building7.json"
+	},
+	
+	"notes":[
+		"if transform present, create TransformedRenderable?",
+		"how should vehicle get access to ground? [get from model dictionary?]",
+		"vehicle is a special type of transform? [no...]",
+		"optional count property on Model? [no...]"
+	],
+
+	"objects": [
+	
+		{ "model": "camera" },
+		{ "model": "sky" },
+		
+		{ "model": "ground" },
+		{ "model": "building2", "transform": { "translate": [  50.0, 0.0,  50.0] }},
+		{ "model": "building3", "transform": { "translate": [ 100.0, 0.0,  50.0] }},
+		{ "model": "building4", "transform": { "translate": [  50.0, 0.0, 100.0] }},
+		{ "model": "building6", "transform": { "translate": [   0.0, 0.0,   0.0] }},
+		{ "model": "building5", "transform": { "translate": [ -50.0, 0.0, -50.0] }},
+		{ "model": "building7", "transform": { "translate": [  12.5, 0.0,  62.5] }},
+		{ "model": "building1", "transform": { "translate": [ -11.0, 0.0,  39.0] }},
+		{ "model": "building1", "transform": { "translate": [ -50.0, 0.0,-100.0] }},
+		{ "model": "building1", "transform": { "translate": [-100.0, 0.0, -50.0] }},
+		{ "model": "building1", "transform": { "translate": [ -50.0, 0.0,   0.0] }},
+		{ "model": "building1", "transform": { "translate": [   0.0, 0.0, -50.0] }},
+		{ "model": "building4", "transform": { "translate": [ -50.0, 0.0,  50.0] }},
+		{ "model": "building2", "transform": { "translate": [-100.0, 0.0,  50.0] }},
+		{ "model": "building2", "transform": { "translate": [ -87.0, 0.0, -12.5] }},
+		{ "model": "building2", "transform": { "translate": [-112.0, 0.0,  12.5] }},
+
+		{ "model": "vehicle1", "transform": { "translate": [ 75.0, 1.0,  27.0] }},
+		{ "model": "vehicle2", "transform": { "translate": [-75.0, 1.0, -27.0] }},
+		{ "model": "vehicle3", "transform": { "translate": [125.0, 1.0, -27.0] }},
+
+		{
+			"model":"cube",
+			"transform": [
+				{"rotate":35, "axis":[1,1,1], "about":[0,0,0]},
+				{"translate":[0,2,0]},
+				{"x-scale":[0.5,0.5,0.5], "about":[0,0,0]},
+				{"x-scale":0.5}
+			]
+		}
+	],
+	
+	"vehicles": [
+		{ "model":"vehicle1", "count":33 },
+		{ "model":"vehicle2", "count":33 },
+		{ "model":"vehicle3", "count":33 }
+	]
+}

@@ -1,0 +1,5 @@
+{
+	"type": "sky",
+	"shader": "flat",
+	"texture": "textures/sky1.png"
+}

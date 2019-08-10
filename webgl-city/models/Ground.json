@@ -1,0 +1,23 @@
+{
+	"type": "ground",
+	"shader": "flat",
+	"rows": 8,
+	"cols": 8,
+	"tiles": [
+		{ "exits":[1,1,1,1], "texture": "textures/road-cross.png"   },
+		{ "exits":[0,0,1,1], "texture": "textures/road-turn-SW.png" },
+		{ "exits":[1,0,0,1], "texture": "textures/road-turn-NW.png" },
+		{ "exits":[0,1,1,0], "texture": "textures/road-turn-SE.png" },
+		{ "exits":[1,1,0,0], "texture": "textures/road-turn-NE.png" }
+	],
+	"layout": [
+		-1, -1, -1,  3,  1, -1, -1, -1,
+		-1, -1,  3,  0,  0,  1, -1, -1,
+		-1,  3,  0,  0,  0,  0,  1, -1,
+		 3,  0,  0,  0,  0,  0,  0,  1,
+		 4,  0,  0,  0,  0,  0,  0,  2,
+		-1,  4,  0,  0,  0,  0,  2, -1,
+		-1, -1,  4,  0,  0,  2, -1, -1,
+		-1, -1, -1,  4,  2, -1, -1, -1
+	]
+}

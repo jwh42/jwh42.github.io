@@ -1,0 +1,18 @@
+{
+	"type":"building",
+	"angleCount":32,
+	"base": [8,2, 11,1, 12,2, 11,1, 8,4, 11,1, 12,2, 11,1, 8,4, 11,1, 12,2, 11,1, 8,4, 11,1, 12,2, 11,1, 8,2],
+	"levels": [
+		{ "shader":"diffuse", "height":5, "texture": "textures/08-teal.png",    "r": [ 8, 32] },
+		{ "shader":"diffuse", "height":3, "texture": "textures/09-teal2.png",   "r": [ 4, 32] },
+		{ "shader":"diffuse", "height":5, "texture": "textures/01-windows.png", "r": [ 4, 32] },
+		{ "shader":"diffuse", "height":2, "texture": "textures/05-grill2.png",  "r": [ 5, 32] },
+		{ "shader":"diffuse", "height":2, "texture": "textures/05-grill2.png",  "r": [ 4, 32] },
+		{ "shader":"diffuse", "height":2, "texture": "textures/05-grill2.png",  "r": [ 5, 32] },
+		{ "shader":"diffuse", "height":5, "texture": "textures/01-windows.png", "r": [ 4, 32] },
+		{ "shader":"diffuse", "height":3, "texture": "textures/01-windows.png", "r": [10, 32] },
+		{ "shader":"diffuse", "height":3, "texture": "textures/06-vwindow.png", "r": [10, 32] },
+		{ "shader":"diffuse", "height":3, "texture": "textures/01-windows.png", "r": [ 4, 32] },
+		{ "shader":"diffuse", "height":0, "texture": "textures/04-topper.png",  "r": [0.01, 32] }
+	]
+}
