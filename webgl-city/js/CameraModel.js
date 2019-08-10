@@ -21,7 +21,7 @@ class CameraModel extends Model {
 		this._lookAtXZ = 0.0;
 		
 		this._cWasDown = false;
-		this._userCamera = true;
+		this._userCamera = false;
 		
 		// TODO: cleanup
 
