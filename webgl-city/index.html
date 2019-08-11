@@ -1,169 +1,186 @@
-
 <html>
 
-<head>
-<title>Model Rendering Experiment</title>
-<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-
-<script type="text/javascript" src="js/gl-matrix-0.9.5.min.js"></script>
-<script type="text/javascript" src="js/KeyCodes.js"></script>
-<script type="text/javascript" src="js/Validate.js"></script>
-<script type="text/javascript" src="js/VectorMath.js"></script>
-<script type="text/javascript" src="js/Spline3.js"></script>
-<script type="text/javascript" src="js/ModelView.js"></script>
-<script type="text/javascript" src="js/ResourceLoader.js"></script>
-<script type="text/javascript" src="js/Renderable.js"></script>
-<script type="text/javascript" src="js/FlatShader.js"></script>
-<script type="text/javascript" src="js/DiffuseShader.js"></script>
-<script type="text/javascript" src="js/Model.js"></script>
-<script type="text/javascript" src="js/CameraModel.js"></script>
-<script type="text/javascript" src="js/GroundModel.js"></script>
-<script type="text/javascript" src="js/SkyModel.js"></script>
-<script type="text/javascript" src="js/BuildingModel.js"></script>
-<script type="text/javascript" src="js/RawVerticiesModel.js"></script>
-<script type="text/javascript" src="js/MultiQuadStripModel.js"></script>
-<script type="text/javascript" src="js/Vehicle.js"></script>
-<script type="text/javascript" src="js/WorldModel.js"></script>
-
-
-<script type="text/javascript">
-
-	let gl = null;
-	let res = null;
-	let modelView = null;
-	let worldModel = null;
-	let initialized = false;
-
-	function initGL(canvas) {
+	<head>
+	<title>Model Rendering Experiment</title>
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
 	
-		try {
+	<style type="text/css">
+		#loader {
+			top: 10px;
+			left: 10px;
+			color: #d0d0d0;
+			animation: LoaderPulse 500ms infinite alternate ease-in-out;
+			font-family: Arial, Helvetica, sans-serif;
+			position: absolute; 
+		}
+		@keyframes LoaderPulse {
+			  0% { opacity: 0.2 }
+			100% { opacity: 1.0 }
+		}
+	</style>
+	
+	<script type="text/javascript">
+	
+		let gl = null;
+		let res = null;
+		let modelView = null;
+		let worldModel = null;
+		let initialized = false;
+	
+		function initGL(canvas) {
+		
+			try {
+				canvas.width = canvas.offsetWidth;
+				canvas.height = canvas.offsetHeight;
+				
+				canvas.onpointerdown = function() {
+					canvas.requestPointerLock();
+				}
+	
+				gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+				gl.viewportWidth = canvas.offsetWidth;
+				gl.viewportHeight = canvas.offsetHeight;
+				modelView = new ModelView(gl);
+				res = new ResourceLoader(gl);
+			} catch (e) {
+				console.warn(e);
+			}
+			if(!gl) {
+				alert("Could not initialize WebGL");
+			}
+		}
+	
+	
+	
+		function drawScene() {
+	
+			gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		
+			mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 1, 2000.0, modelView.pjMatrix);
+	
+			worldModel.render(modelView);
+			modelView.finishFrame();
+		}
+	
+	
+	/*
+		 var lastTime = 0;
+	
+		 function animate() {
+			  var timeNow = new Date().getTime();
+			  if (lastTime != 0) {
+					var elapsed = timeNow - lastTime;
+	
+					xRot += (xSpeed * elapsed) / 10000.0;
+					yRot += (ySpeed * elapsed) / 10000.0;
+			  }
+			  lastTime = timeNow;
+		 }
+	*/
+	
+		function tick() {
+			//##handleKeys();
+			drawScene();
+			//##animate();
+			requestAnimationFrame(tick);
+		}
+	
+	
+		function startup() {
+	
+			initGL(document.getElementById("content"));
+	
+			res.addModelType("world", WorldModel);
+			res.addModelType("sky", SkyModel);
+			res.addModelType("camera", CameraModel);
+			res.addModelType("ground", GroundModel);
+			res.addModelType("building", BuildingModel);
+			res.addModelType("rawVerticies", RawVerticiesModel);
+			res.addModelType("multiQuadStrip", MultiQuadStripModel);
+	
+			Promise.all([
+				Promise.all([
+					res.createShaderProgramAsync(
+						"shaders/Diffuse-Vertex.glsl",
+						"shaders/Diffuse-Fragment.glsl"),
+					res.createShaderProgramAsync(
+						"shaders/Normal-Vertex.glsl",
+						"shaders/Normal-Fragment.glsl")
+				])
+					.then(sp => res.addModelShader("diffuse", new DiffuseShader(gl, sp[0], sp[1]))),
+			
+				//##res
+				//##	.then(sp => res.addModelShader("diffuse", new DiffuseShader(gl, sp))),
+				res
+					.createShaderProgramAsync(
+						"shaders/Flat-Vertex.glsl",
+						"shaders/Flat-Fragment.glsl")
+					.then(sp => res.addModelShader("flat", new FlatShader(gl, sp)))
+			])
+			.then(() => 
+				Model
+					.loadAsync("models/World.json", res)
+					.then(result => worldModel = result)
+			)
+			.then(model => {
+	
+				gl.clearColor(0.0, 0.0, 0.0, 1.0);
+				gl.enable(gl.DEPTH_TEST);
+				gl.enable(gl.CULL_FACE);
+				gl.cullFace(gl.BACK);
+	
+				//##document.onkeydown = handleKeyDown;
+				//##document.onkeyup = handleKeyUp;
+				window.onresize = handleResize;
+	
+				const loader = document.getElementById("loader");
+				loader.parentElement.removeChild(loader);
+	
+				initialized = true;
+	
+				tick();
+			});
+		}
+	
+		
+		function handleResize() {
+	
+			const canvas = document.getElementById("content");
 			canvas.width = canvas.offsetWidth;
 			canvas.height = canvas.offsetHeight;
-			
-			canvas.onpointerdown = function() {
-				canvas.requestPointerLock();
-			}
-
-			gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-			gl.viewportWidth = canvas.offsetWidth;
+			gl.viewportWidth = canvas.offsetWidth; // TODO: move properties out of gl object?
 			gl.viewportHeight = canvas.offsetHeight;
-			modelView = new ModelView(gl);
-			res = new ResourceLoader(gl);
-		} catch (e) {
-			console.warn(e);
-		}
-		if(!gl) {
-			alert("Could not initialize WebGL");
-		}
-	}
-
-
-
-	function drawScene() {
-
-		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 	
-		mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 1, 2000.0, modelView.pjMatrix);
-
-		worldModel.render(modelView);
-		modelView.finishFrame();
-	}
-
-
-/*
-    var lastTime = 0;
-
-    function animate() {
-        var timeNow = new Date().getTime();
-        if (lastTime != 0) {
-            var elapsed = timeNow - lastTime;
-
-            xRot += (xSpeed * elapsed) / 10000.0;
-            yRot += (ySpeed * elapsed) / 10000.0;
-        }
-        lastTime = timeNow;
-    }
-*/
-
-    function tick() {
-        //##handleKeys();
-        drawScene();
-        //##animate();
-        requestAnimationFrame(tick);
-    }
-
-
-	function startup() {
-
-		initGL(document.getElementById("content"));
-
-		res.addModelType("world", WorldModel);
-		res.addModelType("sky", SkyModel);
-		res.addModelType("camera", CameraModel);
-		res.addModelType("ground", GroundModel);
-		res.addModelType("building", BuildingModel);
-		res.addModelType("rawVerticies", RawVerticiesModel);
-		res.addModelType("multiQuadStrip", MultiQuadStripModel);
-
-		Promise.all([
-			Promise.all([
-				res.createShaderProgramAsync(
-					"shaders/Diffuse-Vertex.glsl",
-					"shaders/Diffuse-Fragment.glsl"),
-				res.createShaderProgramAsync(
-					"shaders/Normal-Vertex.glsl",
-					"shaders/Normal-Fragment.glsl")
-			])
-				.then(sp => res.addModelShader("diffuse", new DiffuseShader(gl, sp[0], sp[1]))),
-		
-			//##res
-			//##	.then(sp => res.addModelShader("diffuse", new DiffuseShader(gl, sp))),
-			res
-				.createShaderProgramAsync(
-					"shaders/Flat-Vertex.glsl",
-					"shaders/Flat-Fragment.glsl")
-				.then(sp => res.addModelShader("flat", new FlatShader(gl, sp)))
-		])
-		.then(() => 
-			Model
-				.loadAsync("models/World.json", res)
-				.then(result => worldModel = result)
-		)
-		.then(model => {
-
-			gl.clearColor(0.0, 0.0, 0.0, 1.0);
-			gl.enable(gl.DEPTH_TEST);
-			gl.enable(gl.CULL_FACE);
-			gl.cullFace(gl.BACK);
-
-			//##document.onkeydown = handleKeyDown;
-			//##document.onkeyup = handleKeyUp;
-			window.onresize = handleResize;
-
-			initialized = true;
-
-			tick();
-		});
-	}
-
-	
-	function handleResize() {
-
-		const canvas = document.getElementById("content");
-		canvas.width = canvas.offsetWidth;
-		canvas.height = canvas.offsetHeight;
-		gl.viewportWidth = canvas.offsetWidth; // TODO: move properties out of gl object?
-		gl.viewportHeight = canvas.offsetHeight;
-
-		if(initialized) {
-			drawScene();
+			if(initialized) {
+				drawScene();
+			}
 		}
-	}
-
-</script>
-</head>
-<body onload="startup()" style="width:100%;height:100%;margin:0;padding:0">
-	<canvas id="content" style="width:100%;height:100%"></canvas>
-</body>
-</html>
+	
+	</script>
+	</head>
+	<body onload="startup()" style="width:100%; height:100%; margin:0; padding:0; background:#202020">
+		<script type="text/javascript" src="js/gl-matrix-0.9.5.min.js"></script>
+		<script type="text/javascript" src="js/KeyCodes.js"></script>
+		<script type="text/javascript" src="js/Validate.js"></script>
+		<script type="text/javascript" src="js/VectorMath.js"></script>
+		<script type="text/javascript" src="js/Spline3.js"></script>
+		<script type="text/javascript" src="js/ModelView.js"></script>
+		<script type="text/javascript" src="js/ResourceLoader.js"></script>
+		<script type="text/javascript" src="js/Renderable.js"></script>
+		<script type="text/javascript" src="js/FlatShader.js"></script>
+		<script type="text/javascript" src="js/DiffuseShader.js"></script>
+		<script type="text/javascript" src="js/Model.js"></script>
+		<script type="text/javascript" src="js/CameraModel.js"></script>
+		<script type="text/javascript" src="js/GroundModel.js"></script>
+		<script type="text/javascript" src="js/SkyModel.js"></script>
+		<script type="text/javascript" src="js/BuildingModel.js"></script>
+		<script type="text/javascript" src="js/RawVerticiesModel.js"></script>
+		<script type="text/javascript" src="js/MultiQuadStripModel.js"></script>
+		<script type="text/javascript" src="js/Vehicle.js"></script>
+		<script type="text/javascript" src="js/WorldModel.js"></script>
+		<canvas id="content" style="width:100%;height:100%"></canvas>
+		<div id="loader">Loading...</div>
+	</body>
+	</html>
+	
