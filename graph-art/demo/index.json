@@ -1,0 +1,8 @@
+[
+	{ "id": "graph1", "label": "Graph #1"},
+	{ "id": "mobius1", "label": "Möbius Strip"},
+	{ "id": "sin-x-cos", "label": "Sine x Cosine"},
+	{ "id": "tori", "label": "Tori"},
+	{ "id": "tori-with-sphere", "label": "Tori and Spheres"},
+	{ "id": "wrinkles", "label": "Wrinkles"}
+]
