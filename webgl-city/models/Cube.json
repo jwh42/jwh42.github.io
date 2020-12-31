@@ -1,5 +1,5 @@
 {
-	"type": "rawVerticies",
+	"type": "rawVertices",
 	"texture": "textures/crate.gif",
 	"shader": "diffuse",
 	"vertices": [

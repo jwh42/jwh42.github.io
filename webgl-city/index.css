@@ -1,0 +1,60 @@
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #d0d0d0;
+}
+
+#about0 {
+	top: 5px;
+	right: 5px;
+	padding: 7px;
+	border: 1px solid rgb(204, 204, 204, 0.3);
+	border-radius: 5px;
+	background: rgb(0, 0, 0, 0.4);
+	opacity: 1;
+	transition: opacity 200ms ease-in-out;
+	cursor: pointer;
+	position: absolute;
+}
+
+#about1 {
+	top: 5px;
+	right: 5px;
+	padding: 5px;
+	font-size: 11px;
+	color: #808080;
+	border: 1px solid rgb(204, 204, 204, 0.3);
+	border-radius: 5px;
+	background: rgb(0, 0, 0, 0.4);
+	opacity: 0;
+	transition: opacity 200ms ease-in-out;
+	user-select: none;
+	position: absolute;
+}
+
+#about1 > span {
+	color: #d0d0d0;
+}
+
+#about {
+	cursor: pointer;
+}
+
+#about[data-active] > #about0 {
+	opacity: 0;
+}
+
+#about[data-active] > #about1 {
+	opacity: 1;
+}
+
+#loader {
+	top: 10px;
+	left: 10px;
+	animation: LoaderPulse 500ms infinite alternate ease-in-out;
+	position: absolute; 
+}
+
+@keyframes LoaderPulse {
+	0% { opacity: 0.2 }
+	100% { opacity: 1.0 }
+}

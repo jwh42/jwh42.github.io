@@ -1,3 +1,5 @@
+/* Flat/no-lighting fragment shader */
+
 precision mediump float;
 
 varying vec2 vTextureCoord;

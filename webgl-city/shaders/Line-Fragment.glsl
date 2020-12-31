@@ -1,7 +1,6 @@
 /* Fragment shader for solid lines */
 
 precision mediump float;
-
 uniform vec3 color;
 
 void main(void) {

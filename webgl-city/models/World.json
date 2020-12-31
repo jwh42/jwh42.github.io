@@ -1,7 +1,6 @@
 {
 	"type": "world",
 	"models": {
-		"camera": "models/Camera.json",
 		"sky": "models/Sky.json",
 		"ground": "models/Ground.json",
 		"cube": "models/Cube.json",
@@ -26,7 +25,6 @@
 
 	"objects": [
 	
-		{ "model": "camera" },
 		{ "model": "sky" },
 		
 		{ "model": "ground" },

@@ -2,7 +2,7 @@
 	"type": "multiQuadStrip",
 	"shader": "flat",
 	"parts": [{
-		"texture": "textures/car-teal-front.png",
+		"texture": "textures/car-red-front.png",
 		"coords": [
 			1.4, 0.0, 0.1,
 			0.2, 0.0, 0.1,
@@ -18,7 +18,7 @@
 			0.2, 0.0, 2.3
 		]
 	},{
-		"texture": "textures/car-teal-side.png",
+		"texture": "textures/car-red-side.png",
 		"coords": [
 			1.2, 1.5, 0.4,
 			1.2, 1.5, 1.5,
