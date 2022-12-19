@@ -5,6 +5,8 @@ let _context = null;
 let _sprites = null;
 
 let _globalSpeed = 0.5;
+
+const _spriteCount = 100;
 const _maxSpriteSpeed = 0.02; // in % of screen size
 
 const _colors = ["red", "green", "blue"];
@@ -22,9 +24,11 @@ const _collideResult = [
 
 class Sprite {
 
-   constructor(type) {
+   constructor(index, count) {
 
-      this._type = type;
+      this._index = index;
+      this._type = index % 3;
+      this._hitMap = new Uint8Array(count);
 
       this._x = Math.random() * _viewW;
       this._y = Math.random() * _viewH;
@@ -61,18 +65,38 @@ class Sprite {
 
    checkCollide(other) {
 
-      if(
+      const hit = (
          this._x <= other._x + 12 &&
          this._x >= other._x - 12 &&
          this._y <= other._y + 12 &&
          this._y >= other._y - 12
-      ) {
+      );
+
+      if(hit && !this._hitMap[other._index]) {
+
+         // TODO: better test for x vs y hit... (often the answer is "both")
+
+         if(
+            this._x >= other._x - 12 ||
+            this._x <= other._x + 12
+         ) {
+            this._dx = -this._dx;
+            other._dx = -other._dx;
+         }
+         else {
+            this._dy = -this._dy;
+            other._dy = -other._dy;
+         }
 
          const result = _collideResult[this._type][other._type];
 
          this._type = result;
          other._type = result;
+
       }
+
+      this._hitMap[other._index] = hit;
+      other._hitMap[this._index] = hit;
    }
 
    render(context) {
@@ -93,8 +117,8 @@ function resetSprites() {
 
    _sprites = [];
 
-   for(let i = 0; i < 100; i++) {
-      _sprites.push(new Sprite(i % 3));
+   for(let i = 0; i < _spriteCount; i++) {
+      _sprites.push(new Sprite(i, _spriteCount));
    }
 }
 
