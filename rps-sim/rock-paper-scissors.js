@@ -4,6 +4,9 @@ let _canvas = null;
 let _context = null;
 let _sprites = null;
 
+let _globalSpeed = 0.5;
+const _maxSpriteSpeed = 0.02; // in % of screen size
+
 const _colors = ["red", "green", "blue"];
 
 
@@ -26,14 +29,14 @@ class Sprite {
       this._x = Math.random() * _viewW;
       this._y = Math.random() * _viewH;
 
-      this._dx = Math.random()*_viewW*0.02 - _viewW*0.01;
-      this._dy = Math.random()*_viewH*0.02 - _viewH*0.01;
+      this._dx = 2.0*_maxSpriteSpeed * (Math.random() - 0.5) * _viewW;
+      this._dy = 2.0*_maxSpriteSpeed * (Math.random() - 0.5) * _viewH;
    }
 
    update() {
 
-      this._x += this._dx;
-      this._y += this._dy;
+      this._x += _globalSpeed * this._dx;
+      this._y += _globalSpeed * this._dy;
 
       if(this._dx > 0 && this._x > _viewW) {
          this._x = _viewW;
@@ -86,6 +89,16 @@ class Sprite {
 }
 
 
+function resetSprites() {
+
+   _sprites = [];
+
+   for(let i = 0; i < 100; i++) {
+      _sprites.push(new Sprite(i % 3));
+   }
+}
+
+
 function updateViewSize() {
 
    _viewW = _canvas.offsetWidth;
@@ -93,6 +106,18 @@ function updateViewSize() {
 
    _canvas.width = _viewW;
    _canvas.height = _viewH;
+}
+
+
+function handleGlobalSpeed(ev) {
+
+   _globalSpeed = ev.target.value / 100;
+}
+
+
+function handleResetButton(ev) {
+
+   resetSprites();
 }
 
 
@@ -133,17 +158,20 @@ function updateFrame() {
 
 function startup() {
 
+   window.addEventListener("resize", handleResize);
+
+   document
+      .getElementById("globalSpeed")
+      .addEventListener("input", handleGlobalSpeed);
+
+   document
+      .getElementById("resetButton")
+      .addEventListener("click", handleResetButton);
+
    _canvas = document.getElementById("content");
    _context = _canvas.getContext("2d");
-   _sprites = [];
 
    updateViewSize();
-
-   for(let i = 0; i < 100; i++) {
-      _sprites.push(new Sprite(i % 3));
-   }
-
-   window.onresize = handleResize;
-
+   resetSprites();
    requestAnimationFrame(updateFrame);
 }

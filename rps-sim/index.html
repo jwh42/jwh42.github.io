@@ -7,11 +7,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <script type="text/javascript" src="rock-paper-scissors.js"></script>
-  <!--
-  <link rel="stylesheet" href="index.css">
-  -->
+  <style type="text/css">
+    body {
+      margin: 0;
+      color: #e8e8e8;
+      background-color: black;
+      font-family: Arial, Helvetica, sans-serif
+    }
+    #globalSpeed {
+      top: 10px;
+      left: 10px;
+      width: 140px;
+      height: 20px;
+      position: absolute;
+    }
+    #resetButton {
+      top: 10px;
+      right: 10px;
+      padding: 5px;
+      color: #c0c0c0;
+      border: 2px solid #628b33;
+      background: black;
+      position: absolute;
+    }
+  </style>
 </head>
 <body onload="startup()" style="width:100%; height:100%; margin:0; padding:0; background:#202020">
   <canvas id="content" style="position:absolute;width:100%;height:100%;"></canvas>
+  <input id="globalSpeed" type="range" min="0" max="100" value="50" />
+  <input id="resetButton" type="button" value="Reset" />
 </body>
 </html>
