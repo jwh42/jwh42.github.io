@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!--
+	<link rel="apple-touch-icon" sizes="180x180" href="icon180.png">
+	<link rel="icon" type="image/png" href="icon180.png" />
+	-->
+	<script type="text/javascript" src="wordle-solver.js"></script>
+	<title>Wordle Solver</title>
+	<style>
+		body {
+			background-color: #202020;
+			color: #e8e8e8;
+			margin: 0;
+			padding: 20px;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		.word-input {
+			font-family: courier new;
+			font-size: 24px;
+			font-weight: bold;
+			letter-spacing: 24px;
+			text-transform: uppercase;
+			padding: 8px 16px;
+			width: 200px;
+		}
+		.color-input {
+			display: flex;
+		}
+		.letter-color {
+			width: 25px;
+			height: 20px;
+			margin-left: 10px;
+			margin-right: 5px;
+			margin-bottom: 5px;
+			background: darkgray;
+		}
+	</style>
+</head>
+<body onload="init()">
+	<div>
+		<input id="input0" oninput="textChanged(0)" class="word-input" maxlength="5" value="abcde">
+		<div class="color-input">
+			<div id="color00" onclick="updateColor(0,0)" class="letter-color"></div>
+			<div id="color01" onclick="updateColor(0,1)" class="letter-color"></div>
+			<div id="color02" onclick="updateColor(0,2)" class="letter-color"></div>
+			<div id="color03" onclick="updateColor(0,3)" class="letter-color"></div>
+			<div id="color04" onclick="updateColor(0,4)" class="letter-color"></div>
+		</div>
+	</div>
+	<div>
+		<input id="input1" oninput="textChanged(1)" class="word-input" maxlength="5" value="fghij">
+		<div class="color-input">
+			<div id="color10" onclick="updateColor(1,0)" class="letter-color"></div>
+			<div id="color11" onclick="updateColor(1,1)" class="letter-color"></div>
+			<div id="color12" onclick="updateColor(1,2)" class="letter-color"></div>
+			<div id="color13" onclick="updateColor(1,3)" class="letter-color"></div>
+			<div id="color14" onclick="updateColor(1,4)" class="letter-color"></div>
+		</div>
+	</div>
+	<div>
+		<input id="input2" oninput="textChanged(2)" class="word-input" maxlength="5" value="klmno">
+		<div class="color-input">
+			<div id="color20" onclick="updateColor(2,0)" class="letter-color"></div>
+			<div id="color21" onclick="updateColor(2,1)" class="letter-color"></div>
+			<div id="color22" onclick="updateColor(2,2)" class="letter-color"></div>
+			<div id="color23" onclick="updateColor(2,3)" class="letter-color"></div>
+			<div id="color24" onclick="updateColor(2,4)" class="letter-color"></div>
+		</div>
+	</div>
+	<div>
+		<input id="input3" oninput="textChanged(3)" class="word-input" maxlength="5" value="pqrst">
+		<div class="color-input">
+			<div id="color30" onclick="updateColor(3,0)" class="letter-color"></div>
+			<div id="color31" onclick="updateColor(3,1)" class="letter-color"></div>
+			<div id="color32" onclick="updateColor(3,2)" class="letter-color"></div>
+			<div id="color33" onclick="updateColor(3,3)" class="letter-color"></div>
+			<div id="color34" onclick="updateColor(3,4)" class="letter-color"></div>
+		</div>
+	</div>
+	<div id="results">
+	</div>
+</body>
+</html>
