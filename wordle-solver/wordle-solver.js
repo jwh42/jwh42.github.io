@@ -1,7 +1,18 @@
 let words = [];
+let wordInputs = [];
+let inputTemplate = null;
 
 
 async function init() {
+
+	inputTemplate = document.getElementById("word-input-template").content;
+
+	const wordInputsNode = document.getElementById("word-inputs");
+	for(let i = 0; i < 6; i++) {
+		const wordInput = new GuessInput();
+		wordInputsNode.appendChild(wordInput.rootElement);
+		wordInputs.push(wordInput);
+	}
 
 	const response = await fetch("words-five.txt");
 	const textFile = await response.text();
@@ -11,81 +22,135 @@ async function init() {
 }
 
 
-function updateColor(row, col) {
-	const div = document.getElementById(`color${row}${col}`);
-	const color = div.getAttribute("data-color");
-	let nextColor = '';
-	let nextBkgnd = '';
-	if(color == 'y') {
-		nextColor = 'g';
-		nextBkgnd = 'green';
-	}
-	else if(color == 'g') {
-		nextColor = 'b';
-		nextBkgnd = 'darkgray';
-	}
-	else {
-		nextColor = 'y';
-		nextBkgnd = 'yellow';
-	}
-	div.setAttribute("data-color", nextColor);
-	div.style.background = nextBkgnd;
+class ParsedGuess {
 
-	textChanged();
+	constructor(tokens, colors) {
+
+		const forbidden = new Set();
+		const required = [];
+
+		this.tokens = tokens;
+		this.colors = colors;
+		this.forbidden = forbidden;
+		this.required = required;
+
+		for(let i = 0; i < tokens.length; i++) {
+
+			const token = tokens[i];
+			switch(colors[i]) {
+
+			case 'b':
+				if(required.indexOf(token) < 0) {
+					forbidden.add(token);
+				}
+				break;
+
+			case 'y':
+				required.push(token);
+				break;
+			}
+		}
+	}
 }
 
 
-function textChanged() {
+class GuessInput {
 
-	const searches = [];
+	constructor() {
 
-	for(let i = 0; i < 5; i++) {
-		const input = document.getElementById(`input${i}`);
-		if(input.value && input.value.length == 5) {
-			searches.push({
-				tokens: input.value.toLowerCase(),
-				colors: getColors(i)
-			});
+		const rootElement = inputTemplate.cloneNode(true);
+		const inputBox = rootElement.querySelector(".input-box");
+		inputBox.oninput = () => executeSearch();
+
+		this.colorBoxes = [];
+		this.inputBox = inputBox;
+		this.rootElement = rootElement;
+
+		for(let i = 0; i < 5; i++) {
+			const colorBox = rootElement.querySelector(`.color${i}`);
+			colorBox.onclick = this._createColorBoxClickHandler(colorBox, i);
+			colorBox.setAttribute("data-color", "b");
+			this.colorBoxes.push(colorBox);
 		}
 	}
 
-	prepareSearches(searches);
+	getParsedGuess() {
 
-	const matches = findMatches(words, searches);
-	if(matches.length > 20) {
-		matches.length = 20;
+		const inputValue = this.inputBox.value;
+		if(!inputValue || inputValue.length != 5) {
+			return null;
+		}
+
+		return new ParsedGuess(
+			inputValue.toLowerCase(),
+			this.colorBoxes.map(i => i.getAttribute("data-color"))
+		);
 	}
 
-	const resultsView = document.getElementById("results");
-	resultsView.innerText = matches.join("\n");
+	_createColorBoxClickHandler(colorBox, i) {
+		return () => {
+			colorBox.setAttribute(
+				"data-color",
+				this._nextColor(colorBox.getAttribute("data-color"))
+			);		
+			executeSearch();
+		}	
+	}
+
+	_nextColor(color) {
+		switch(color) {
+		case 'y': return 'g';
+		case 'g': return 'b';
+		default: return 'y';
+		}
+	}
 }
 
 
-function getColors(row) {
-	
-	const colors = [];
-	for(let i = 0; i < 5; i++) {
-		const div = document.getElementById(`color${row}${i}`);
-		colors.push(div.getAttribute("data-color") || 'b');
+function executeSearch() {
+
+	const guesses = [];
+
+	for(let i = 0; i < wordInputs.length; i++) {
+		const guess = wordInputs[i].getParsedGuess();
+		if(guess) {
+			guesses.push(guess);
+		}
 	}
 
-	return colors.join("");
+	const matches = findMatches(words, guesses);
+
+	let headMessage = `${matches.length} match${matches.length === 1? '':'es'}`;
+
+	if(matches.length > 60) {
+		headMessage += ". Showing 60:";
+	}
+	else if(matches.length > 0) {
+		headMessage += ":";
+	}
+
+	const resultsHead = document.getElementById("results-head");
+	resultsHead.innerText = headMessage;
+
+	populateResultList(matches, 0);
+	populateResultList(matches, 1);
+	populateResultList(matches, 2);
 }
 
 
-function findMatches(words, searches) {
+function populateResultList(matches, index) {
+
+	const node = document.getElementById(`results-list${index}`);
+	node.innerText = matches.slice(index*20, (index+1)*20 - 1).join('\n');
+}
+
+
+function findMatches(words, guesses) {
 
 	const result = [];
 
-	for(let i = 0; i < searches.length; i++) {
-		const search = searches[i];
-		search.forbidden = new Set();
-		search.required = [];
-		getRequiredAndForbiddenLetters(search, search.required, search.forbidden);
-	}
-
 	for(let i = 0; i < words.length; i++) {
-		if(matchesAllSearches(words[i], searches)) {
+		if(matchesAllGuesses(words[i], guesses)) {
 			result.push(words[i]);
 		}
 	}
@@ -94,10 +159,10 @@ function findMatches(words, searches) {
 }
 
 
-function matchesAllSearches(word, searches) {
+function matchesAllGuesses(word, guesses) {
 
-	for(let i = 0; i < searches.length; i++) {
-		if(!matchesOneSearch(word, searches[i])) {
+	for(let i = 0; i < guesses.length; i++) {
+		if(!matchesOneGuess(word, guesses[i])) {
 			return false;
 		}
 	}
@@ -106,12 +171,12 @@ function matchesAllSearches(word, searches) {
 }
 
 
-function matchesOneSearch(word, search) {
+function matchesOneGuess(word, guess) {
 
-	const tokens = search.tokens;
-	const colors = search.colors;
-	const forbidden = search.forbidden;
-	const required = [...search.required];
+	const tokens = guess.tokens;
+	const colors = guess.colors;
+	const forbidden = guess.forbidden;
+	const required = [...guess.required];
 
 	for(let i = 0; i < word.length; i++) {
 
@@ -134,36 +199,4 @@ function matchesOneSearch(word, search) {
 	}
 
 	return required.length == 0;
-}
-
-
-function prepareSearches(searches) {
-
-	for(let i = 0; i < searches.length; i++) {
-		const search = searches[i];
-		search.forbidden = new Set();
-		search.required = [];
-		getRequiredAndForbiddenLetters(search, search.required, search.forbidden);
-	}
-}
-
-
-function getRequiredAndForbiddenLetters(search, required, forbidden) {
-
-	for(let i = 0; i < search.tokens.length; i++) {
-
-		const token = search.tokens[i];
-		switch(search.colors[i]) {
-
-		case 'b':
-			if(required.indexOf(token) < 0) {
-				forbidden.add(token);
-			}
-			break;
-
-		case 'y':
-			required.push(token);
-			break;
-		}
-	}
 }

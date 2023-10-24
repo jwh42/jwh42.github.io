@@ -1,0 +1,107 @@
+body {
+	--solver-text-color: #e8e8e8;
+	--solver-background: #202020;
+	--solver-input-font-size: 24px;
+	--solver-input-font-weight: bold;
+	--solver-input-font-family: 'Courier New';
+	font-family: var(--solver-input-font-family);
+	background-color: var(--solver-background);
+	color: var(--solver-text-color);
+	margin: 0;
+	padding: 20px;
+	display: flex;
+}
+
+div#word-inputs {
+	margin-right: 30px;
+}
+
+div#results-head {
+	margin-bottom: 20px;
+	font-weight: bold;
+	font-family: arial;
+}
+
+.results-lists {
+	font-size: 18px;
+	display: flex;
+}
+
+.results-lists > div {
+	margin-right: 20px;
+}
+
+.input-frame {
+	width: 100%;
+	height: 40px;
+	position: relative;
+}
+
+.char-boxes {
+	height: 100%;
+	margin-left: 4px;
+	position: relative;
+	display: flex;
+}
+
+.char-box {
+	background: #4d4d4d;
+	border: 2px solid var(--solver-background);
+	box-sizing: border-box;
+	font-family: 'Courier New';
+	font-size: var(--solver-input-font-size);
+	font-weight: var(--solver-input-font-weight);
+	letter-spacing: 22px;
+	margin-right: -2px;
+	color: #e8e8e8;
+}
+
+.input-box {
+	top: 0;
+	left: 0;
+	right: -30px;
+	bottom: 0;
+	padding: 8px 16px;
+	color: var(--solver-text-color);
+	font-size: var(--solver-input-font-size);
+	font-weight: var(--solver-input-font-weight);
+	font-family: var(--solver-input-font-family);
+	letter-spacing: 24px;
+	text-transform: uppercase;
+	background: none;
+	border: none;
+	outline: none;
+	box-sizing: border-box;
+	position: absolute;
+}
+
+.color-bar {
+	width: 100%;
+	margin-bottom: 5px;
+	margin-left: 4px;
+	margin-top: -2px;
+	user-select: none;
+	display: flex;
+}
+
+.color-cell {
+	font-size: var(--solver-input-font-size);
+	font-weight: var(--solver-input-font-weight);
+	letter-spacing: 22px;
+	margin-right: -2px;
+	height: 20px;
+	border: 2px solid var(--solver-background);
+	background: darkgray;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+
+.color-cell[data-color='b'] {
+	background: darkgray;
+}
+.color-cell[data-color='y'] {
+	background: yellow;
+}
+.color-cell[data-color='g'] {
+	background: green;
+}
