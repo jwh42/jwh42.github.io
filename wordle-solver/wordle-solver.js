@@ -2,6 +2,8 @@ let words = [];
 let wordInputs = [];
 let inputTemplate = null;
 
+const executeSearch = debounce(executeSearchCore, 500);
+
 
 async function init() {
 
@@ -107,7 +109,7 @@ class GuessInput {
 }
 
 
-function executeSearch() {
+function executeSearchCore() {
 
 	const guesses = [];
 
@@ -199,4 +201,14 @@ function matchesOneGuess(word, guess) {
 	}
 
 	return required.length == 0;
+}
+
+
+function debounce(callback, wait) {
+	let timeout;
+	return (...args) => {
+		 const context = this;
+		 clearTimeout(timeout);
+		 timeout = setTimeout(() => callback.apply(context, args), wait);
+	};
 }
