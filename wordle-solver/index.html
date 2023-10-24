@@ -40,49 +40,191 @@
 			margin-bottom: 5px;
 			background: darkgray;
 		}
+
+		.word-frame {
+			position: relative;
+			width: 300px;
+			height: 40px;
+		}
+		.word-bkgnd {
+			position: relative;
+			display: flex;
+			height: 100%;
+			margin-left: 4px;
+		}
+		.word-bkgnd-cell {
+			background: #4d4d4d;
+			border: 2px solid #202020;
+			box-sizing: border-box;
+			font-family: 'Courier New';
+			font-size: 24px;
+			font-weight: bold;
+			letter-spacing: 22px;
+			margin-right: -2px;
+			color: #e8e8e8;
+		}
+		.word-input2 {
+			font-family: 'Courier New';
+			font-size: 24px;
+			font-weight: bold;
+			letter-spacing: 24px;
+			text-transform: uppercase;
+			padding: 8px 16px;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			box-sizing: border-box;
+			background: none;
+			border: none;
+			outline: none;
+			color: #e8e8e8;
+		}
+		.color-input2 {
+			width: 300px;
+			margin-bottom: 5px;
+			margin-left: 4px;
+			margin-top: -2px;
+			user-select: none;
+			display: flex;
+		}
+		.letter-color2 {
+			font-family: 'Courier New';
+			font-size: 24px;
+			font-weight: bold;
+			letter-spacing: 22px;
+			margin-right: -2px;
+			height: 20px;
+			border: 2px solid black;
+			background: darkgray;
+			box-sizing: border-box;
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body onload="init()">
+
 	<div>
-		<input id="input0" oninput="textChanged(0)" class="word-input" maxlength="5" value="">
-		<div class="color-input">
-			<div id="color00" onclick="updateColor(0,0)" class="letter-color"></div>
-			<div id="color01" onclick="updateColor(0,1)" class="letter-color"></div>
-			<div id="color02" onclick="updateColor(0,2)" class="letter-color"></div>
-			<div id="color03" onclick="updateColor(0,3)" class="letter-color"></div>
-			<div id="color04" onclick="updateColor(0,4)" class="letter-color"></div>
+		<div class="word-frame">
+			<div class="word-bkgnd">
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+			</div>
+			<input id="input0" oninput="textChanged()" class="word-input2" maxlength="5" value="">
+		</div>
+		<div class="color-input2">
+			<div id="color00" onclick="updateColor(0,0)" class="letter-color2">&nbsp;</div>
+			<div id="color01" onclick="updateColor(0,1)" class="letter-color2">&nbsp;</div>
+			<div id="color02" onclick="updateColor(0,2)" class="letter-color2">&nbsp;</div>
+			<div id="color03" onclick="updateColor(0,3)" class="letter-color2">&nbsp;</div>
+			<div id="color04" onclick="updateColor(0,4)" class="letter-color2">&nbsp;</div>
 		</div>
 	</div>
+
 	<div>
-		<input id="input1" oninput="textChanged(1)" class="word-input" maxlength="5" value="">
-		<div class="color-input">
-			<div id="color10" onclick="updateColor(1,0)" class="letter-color"></div>
-			<div id="color11" onclick="updateColor(1,1)" class="letter-color"></div>
-			<div id="color12" onclick="updateColor(1,2)" class="letter-color"></div>
-			<div id="color13" onclick="updateColor(1,3)" class="letter-color"></div>
-			<div id="color14" onclick="updateColor(1,4)" class="letter-color"></div>
+		<div class="word-frame">
+			<div class="word-bkgnd">
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+			</div>
+			<input id="input1" oninput="textChanged()" class="word-input2" maxlength="5" value="">
+		</div>
+		<div class="color-input2">
+			<div id="color10" onclick="updateColor(1,0)" class="letter-color2">&nbsp;</div>
+			<div id="color11" onclick="updateColor(1,1)" class="letter-color2">&nbsp;</div>
+			<div id="color12" onclick="updateColor(1,2)" class="letter-color2">&nbsp;</div>
+			<div id="color13" onclick="updateColor(1,3)" class="letter-color2">&nbsp;</div>
+			<div id="color14" onclick="updateColor(1,4)" class="letter-color2">&nbsp;</div>
 		</div>
 	</div>
+
 	<div>
-		<input id="input2" oninput="textChanged(2)" class="word-input" maxlength="5" value="">
-		<div class="color-input">
-			<div id="color20" onclick="updateColor(2,0)" class="letter-color"></div>
-			<div id="color21" onclick="updateColor(2,1)" class="letter-color"></div>
-			<div id="color22" onclick="updateColor(2,2)" class="letter-color"></div>
-			<div id="color23" onclick="updateColor(2,3)" class="letter-color"></div>
-			<div id="color24" onclick="updateColor(2,4)" class="letter-color"></div>
+		<div class="word-frame">
+			<div class="word-bkgnd">
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+			</div>
+			<input id="input2" oninput="textChanged()" class="word-input2" maxlength="5" value="">
+		</div>
+		<div class="color-input2">
+			<div id="color20" onclick="updateColor(2,0)" class="letter-color2">&nbsp;</div>
+			<div id="color21" onclick="updateColor(2,1)" class="letter-color2">&nbsp;</div>
+			<div id="color22" onclick="updateColor(2,2)" class="letter-color2">&nbsp;</div>
+			<div id="color23" onclick="updateColor(2,3)" class="letter-color2">&nbsp;</div>
+			<div id="color24" onclick="updateColor(2,4)" class="letter-color2">&nbsp;</div>
 		</div>
 	</div>
+
 	<div>
-		<input id="input3" oninput="textChanged(3)" class="word-input" maxlength="5" value="">
-		<div class="color-input">
-			<div id="color30" onclick="updateColor(3,0)" class="letter-color"></div>
-			<div id="color31" onclick="updateColor(3,1)" class="letter-color"></div>
-			<div id="color32" onclick="updateColor(3,2)" class="letter-color"></div>
-			<div id="color33" onclick="updateColor(3,3)" class="letter-color"></div>
-			<div id="color34" onclick="updateColor(3,4)" class="letter-color"></div>
+		<div class="word-frame">
+			<div class="word-bkgnd">
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+			</div>
+			<input id="input3" oninput="textChanged()" class="word-input2" maxlength="5" value="">
+		</div>
+		<div class="color-input2">
+			<div id="color30" onclick="updateColor(3,0)" class="letter-color2">&nbsp;</div>
+			<div id="color31" onclick="updateColor(3,1)" class="letter-color2">&nbsp;</div>
+			<div id="color32" onclick="updateColor(3,2)" class="letter-color2">&nbsp;</div>
+			<div id="color33" onclick="updateColor(3,3)" class="letter-color2">&nbsp;</div>
+			<div id="color34" onclick="updateColor(3,4)" class="letter-color2">&nbsp;</div>
 		</div>
 	</div>
+
+	<div>
+		<div class="word-frame">
+			<div class="word-bkgnd">
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+			</div>
+			<input id="input4" oninput="textChanged()" class="word-input2" maxlength="5" value="">
+		</div>
+		<div class="color-input2">
+			<div id="color40" onclick="updateColor(4,0)" class="letter-color2">&nbsp;</div>
+			<div id="color41" onclick="updateColor(4,1)" class="letter-color2">&nbsp;</div>
+			<div id="color42" onclick="updateColor(4,2)" class="letter-color2">&nbsp;</div>
+			<div id="color43" onclick="updateColor(4,3)" class="letter-color2">&nbsp;</div>
+			<div id="color44" onclick="updateColor(4,4)" class="letter-color2">&nbsp;</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="word-frame">
+			<div class="word-bkgnd">
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+				<div class="word-bkgnd-cell">&nbsp;</div>
+			</div>
+			<input id="input5" oninput="textChanged()" class="word-input2" maxlength="5" value="">
+		</div>
+		<div class="color-input2">
+			<div id="color50" onclick="updateColor(5,0)" class="letter-color2">&nbsp;</div>
+			<div id="color51" onclick="updateColor(5,1)" class="letter-color2">&nbsp;</div>
+			<div id="color52" onclick="updateColor(5,2)" class="letter-color2">&nbsp;</div>
+			<div id="color53" onclick="updateColor(5,3)" class="letter-color2">&nbsp;</div>
+			<div id="color54" onclick="updateColor(5,4)" class="letter-color2">&nbsp;</div>
+		</div>
+	</div>
+
 	<div id="results">
 	</div>
 </body>

@@ -1,5 +1,6 @@
 let words = [];
 
+
 async function init() {
 
 	const response = await fetch("words-five.txt");
@@ -7,38 +8,38 @@ async function init() {
 
 	words = textFile.split('\n');
 	console.log(`loaded ${words.length} words`);
-
-	const searches = [
-		{
-			tokens: 'stars',
-			colors: 'bybbb'
-		},
-		{
-			tokens: 'potty',
-			colors: 'yyybb'
-		},
-		{
-			tokens: 'guilt',
-			colors: 'bbbby'
-		}
-	];
-
-	prepareSearches(searches);
-
-	const matches = findMatches(words, searches);
-
-	console.log(`found ${matches.length} matches`);
-	for(let i = 0; i < matches.length; i++) {
-		console.log(matches[i]);
-	}
 }
 
 
-function textChanged(index) {
+function updateColor(row, col) {
+	const div = document.getElementById(`color${row}${col}`);
+	const color = div.getAttribute("data-color");
+	let nextColor = '';
+	let nextBkgnd = '';
+	if(color == 'y') {
+		nextColor = 'g';
+		nextBkgnd = 'green';
+	}
+	else if(color == 'g') {
+		nextColor = 'b';
+		nextBkgnd = 'darkgray';
+	}
+	else {
+		nextColor = 'y';
+		nextBkgnd = 'yellow';
+	}
+	div.setAttribute("data-color", nextColor);
+	div.style.background = nextBkgnd;
+
+	textChanged();
+}
+
+
+function textChanged() {
 
 	const searches = [];
 
-	for(let i = 0; i < 4; i++) {
+	for(let i = 0; i < 5; i++) {
 		const input = document.getElementById(`input${i}`);
 		if(input.value && input.value.length == 5) {
 			searches.push({
@@ -72,30 +73,6 @@ function getColors(row) {
 }
 
 
-function updateColor(row, col) {
-	const div = document.getElementById(`color${row}${col}`);
-	const color = div.getAttribute("data-color");
-	let nextColor = '';
-	let nextBkgnd = '';
-	if(color == 'y') {
-		nextColor = 'g';
-		nextBkgnd = 'green';
-	}
-	else if(color == 'g') {
-		nextColor = 'b';
-		nextBkgnd = 'darkgray';
-	}
-	else {
-		nextColor = 'y';
-		nextBkgnd = 'yellow';
-	}
-	div.setAttribute("data-color", nextColor);
-	div.style.background = nextBkgnd;
-
-	textChanged(0);
-}
-
-
 function findMatches(words, searches) {
 
 	const result = [];
@@ -120,7 +97,7 @@ function findMatches(words, searches) {
 function matchesAllSearches(word, searches) {
 
 	for(let i = 0; i < searches.length; i++) {
-		if(!matchesSearch(word, searches[i])) {
+		if(!matchesOneSearch(word, searches[i])) {
 			return false;
 		}
 	}
@@ -129,7 +106,7 @@ function matchesAllSearches(word, searches) {
 }
 
 
-function matchesSearch(word, search) {
+function matchesOneSearch(word, search) {
 
 	const tokens = search.tokens;
 	const colors = search.colors;
