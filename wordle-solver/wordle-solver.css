@@ -22,6 +22,25 @@ div#results-head {
 	font-family: arial;
 }
 
+#shuffle {
+	padding: 5px;
+	margin-right: 20px;
+	margin-top: 20px;
+	font-size: 18px;
+	font-family: Arial;
+	text-align: center;
+	border: 2px solid gray;
+	border-radius: 8px;
+	user-select: none;
+	cursor: pointer;
+	display: none;
+}
+#shuffle:active {
+	background: darkblue;
+	color: lightblue;
+	border-color: #000040;
+ }
+
 .results-lists {
 	font-size: 18px;
 	display: flex;

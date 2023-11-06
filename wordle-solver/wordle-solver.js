@@ -1,27 +1,9 @@
 let words = [];
 let wordInputs = [];
+let matches = [];
 let inputTemplate = null;
 
 const executeSearch = debounce(executeSearchCore, 500);
-
-
-async function init() {
-
-	inputTemplate = document.getElementById("word-input-template").content;
-
-	const wordInputsNode = document.getElementById("word-inputs");
-	for(let i = 0; i < 6; i++) {
-		const wordInput = new GuessInput();
-		wordInputsNode.appendChild(wordInput.rootElement);
-		wordInputs.push(wordInput);
-	}
-
-	const response = await fetch("words-five.txt");
-	const textFile = await response.text();
-
-	words = textFile.split('\n');
-	console.log(`loaded ${words.length} words`);
-}
 
 
 class ParsedGuess {
@@ -109,6 +91,25 @@ class GuessInput {
 }
 
 
+async function init() {
+
+	inputTemplate = document.getElementById("word-input-template").content;
+
+	const wordInputsNode = document.getElementById("word-inputs");
+	for(let i = 0; i < 6; i++) {
+		const wordInput = new GuessInput();
+		wordInputsNode.appendChild(wordInput.rootElement);
+		wordInputs.push(wordInput);
+	}
+
+	const response = await fetch("words-five.txt");
+	const textFile = await response.text();
+
+	words = textFile.split('\n');
+	console.log(`loaded ${words.length} words`);
+}
+
+
 function executeSearchCore() {
 
 	const guesses = [];
@@ -120,9 +121,9 @@ function executeSearchCore() {
 		}
 	}
 
-	const matches = findMatches(words, guesses);
+	matches = findMatches(words, guesses);
 
-	let headMessage = `${matches.length} match${matches.length === 1? '':'es'}`;
+	let headMessage = `${matches.length.toLocaleString()} match${matches.length === 1? '':'es'}`;
 
 	if(matches.length > 60) {
 		headMessage += ". Showing 60:";
@@ -131,19 +132,50 @@ function executeSearchCore() {
 		headMessage += ":";
 	}
 
+	const shuffle = document.getElementById("shuffle");
+	shuffle.style.display = matches.length > 60? "block" : "none";
+
 	const resultsHead = document.getElementById("results-head");
 	resultsHead.innerText = headMessage;
 
-	populateResultList(matches, 0);
-	populateResultList(matches, 1);
-	populateResultList(matches, 2);
+	populateResultList(matches);
 }
 
 
-function populateResultList(matches, index) {
+function shuffleMatches() {
 
-	const node = document.getElementById(`results-list${index}`);
-	node.innerText = matches.slice(index*20, (index+1)*20 - 1).join('\n');
+	let shuffled = [...matches];
+	shuffleArray(shuffled, 60);
+	sortArray(shuffled, 60);
+	populateResultList(shuffled);
+}
+
+
+function shuffleArray(matches, count) {
+
+	for(let i = 0; i < count; i++) {
+
+		let rand = Math.floor(Math.random()*(matches.length - i)) + i;
+		let temp = matches[i];
+		matches[i] = matches[rand];
+		matches[rand] = temp;
+	}
+}
+
+
+function sortArray(matches, count) {
+
+	matches.length = count;
+	matches.sort();
+}
+
+
+function populateResultList(matches) {
+
+	for(let column = 0; column < 3; column++) {
+		const node = document.getElementById(`results-list${column}`);
+		node.innerText = matches.slice(column*20, (column+1)*20 - 1).join('\n');
+	}
 }
 
 
